@@ -11,3 +11,5 @@ No terminal na raiz do projeto digite no terminal
 ```
 $ java Busca
 ```
+
+ou rodar pela própria IDE que você estiver usando
