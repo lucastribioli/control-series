@@ -1,3 +1,6 @@
+import com.google.gson.Gson;
+import models.TituloOmdb;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -19,8 +22,11 @@ public class Busca {
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        Gson gson = new Gson();
+        TituloOmdb meuTituloOmdb = gson.fromJson(response.body(), TituloOmdb.class);
 
         System.out.println(response.body());
+        System.out.println(meuTituloOmdb.getTitle());
 
     }
 
