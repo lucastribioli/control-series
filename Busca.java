@@ -15,18 +15,23 @@ public class Busca {
         var busca = leitura.nextLine();
 
         String endereco = "https://omdbapi.com/?t="+ busca +"&apikey=352fe67e";
+        try {
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(endereco))
-                .build();
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        Gson gson = new Gson();
-        TituloOmdb meuTituloOmdb = gson.fromJson(response.body(), TituloOmdb.class);
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(endereco))
+                    .build();
 
-        System.out.println(response.body());
-        System.out.println(meuTituloOmdb.getTitle());
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            Gson gson = new Gson();
+            TituloOmdb meuTituloOmdb = gson.fromJson(response.body(), TituloOmdb.class);
+
+            System.out.println(response.body());
+            System.out.println(meuTituloOmdb.getTitle());
+        } catch (IOException e){
+            System.out.println("Deu ruim" + e.getMessage());
+        }
 
     }
 
