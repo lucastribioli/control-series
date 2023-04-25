@@ -1,4 +1,5 @@
 import com.google.gson.Gson;
+import exceptions.DeuRuimEPorIssoDeuEssaExcecao;
 import models.TituloOmdb;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ public class Busca {
         System.out.println("Digite um filme para busca: ");
         var busca = leitura.nextLine();
 
-        String endereco = "https://omdbapi.com/?t="+ busca +"&apikey=352fe67e";
+        String endereco = "https://omdbapi.com/?t="+ busca.replace(" ", "+") +"&apikey=352fe67e";
         try {
 
 
@@ -31,6 +32,7 @@ public class Busca {
             System.out.println(meuTituloOmdb.getTitle());
         } catch (IOException e){
             System.out.println("Deu ruim" + e.getMessage());
+            throw new DeuRuimEPorIssoDeuEssaExcecao("Essa exceção foi criada para testes apenas");
         }
 
     }
