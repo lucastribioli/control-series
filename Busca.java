@@ -2,6 +2,7 @@ import com.google.gson.Gson;
 import exceptions.DeuRuimEPorIssoDeuEssaExcecao;
 import models.TituloOmdb;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -17,8 +18,6 @@ public class Busca {
 
         String endereco = "https://omdbapi.com/?t="+ busca.replace(" ", "+") +"&apikey=352fe67e";
         try {
-
-
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(endereco))
@@ -30,6 +29,10 @@ public class Busca {
 
             System.out.println(response.body());
             System.out.println(meuTituloOmdb.getTitle());
+            try (FileWriter escrita = new FileWriter("filmes.txt", true)) {
+                escrita.append("Nome do filme buscado: ").append(meuTituloOmdb.getTitle());
+            }
+
         } catch (IOException e){
             System.out.println("Deu ruim" + e.getMessage());
             throw new DeuRuimEPorIssoDeuEssaExcecao("Essa exceção foi criada para testes apenas");
